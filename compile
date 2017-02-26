@@ -1,0 +1,4 @@
+info "Building Phoenix static assets with webpack"
+
+npm run build:dist 
+mix phoenix.digest
