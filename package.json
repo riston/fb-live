@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "./node_modules/webpack/bin/webpack.js --watch-stdin --color"
+    "watch": "./node_modules/webpack/bin/webpack.js --config webpack.config.js --watch-stdin --color",
+    "build:dist": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js --config webpack-prod.config.js -p"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "style-loader": "^0.13.1",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
   }
 }
