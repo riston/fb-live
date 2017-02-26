@@ -1,0 +1,51 @@
+defmodule FbLive.PageController do
+  use FbLive.Web, :controller
+
+  plug :put_layout, "flat.html"
+
+  @post_id Application.get_env(:fb_live, :post_id)
+
+  def index(conn, _params) do
+    render conn, "index.html"
+  end
+
+  def vote(conn, _params) do
+    render conn, "vote.html"
+  end
+
+  def verify(conn, %{"hub.challenge" => challenge} = params) do
+      text conn, challenge
+  end
+  def verify(conn, params) do
+      IO.inspect params
+      render conn, "list.json", %{params: params}
+  end
+
+  def receive(conn, %{ "entry" => entries, "object" => "page"} = params) do
+    entries
+    |> Enum.map(fn entry -> Map.get(entry, "changes") end)
+    |> Enum.map(fn changes -> Enum.map(changes, &map_change/1) end)
+
+    text conn, "ok"
+  end
+  def receive(conn, _params), do: text conn, "No match"
+
+  defp map_change(%{"field" => "feed", "value" => value}) do
+    case value do
+      %{ 
+        "reaction_type" => type, 
+        "post_id" => @post_id,
+        "verb" => "add",
+        "created_time" => created_at,
+        "sender_id" => sender_id
+      } -> FbLive.Reaction.to(%{
+        "type" => type,
+        "post_id" => @post_id,
+        "action" => "add",
+        "created_at" => created_at,
+        "sender_id" => sender_id
+      })
+      _ -> value
+    end
+  end
+end

@@ -1,0 +1,42 @@
+<main class="fb-outer-rect">
+  <h1 class="fb-question">
+    Are you more <span>Dog</span> or <span>Cat</span> person?
+  </h1>
+
+  <div class="fb-content">
+    <section class="fb-left">
+      <div class="fb-placeholder">
+        <div class="fb-image">
+          <img src="/images/dog.png" />
+        </div>
+        <div class="fb-reaction fb-like">
+          <img src="/images/facebook-like.png" width="60" height="60" />
+        </div>
+      </div>
+      <div>
+          <span class="count left-count">0</span>
+      </div>
+    </section>
+
+    <section class="fb-right">
+      <div class="fb-placeholder">
+        <div class="fb-image">
+          <img src="/images/cat.png" />
+        </div>
+        <div class="fb-reaction fb-love">
+          <img src="/images/facebook-love.png" width="60" height="60" />
+        </div>
+      </div>
+      <div>
+          <span class="count right-count">0</span>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="fb-avatars"></div>
+
+  <footer>
+    <p class="fb-help">Give your vote for dog by clicking the FB <em>like button</em> or <em>love button</em> for cat</p>
+  </footer>
+</main>
