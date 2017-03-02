@@ -122,7 +122,6 @@ pulse
 
 const onSummary = summary => {
   const { like, love } = summary;
-  console.log(summary);
 
   left$.textContent = like;
   right$.textContent = love;

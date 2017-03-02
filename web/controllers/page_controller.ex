@@ -1,5 +1,6 @@
 defmodule FbLive.PageController do
   use FbLive.Web, :controller
+  require Logger
 
   plug :put_layout, "flat.html"
 
@@ -22,6 +23,8 @@ defmodule FbLive.PageController do
   end
 
   def receive(conn, %{ "entry" => entries, "object" => "page"} = params) do
+    Logger.debug "Matched FB entry"
+
     entries
     |> Enum.map(fn entry -> Map.get(entry, "changes") end)
     |> Enum.map(fn changes -> Enum.map(changes, &map_change/1) end)
@@ -31,6 +34,8 @@ defmodule FbLive.PageController do
   def receive(conn, _params), do: text conn, "No match"
 
   defp map_change(%{"field" => "feed", "value" => value}) do
+    Logger.debug "Matched reaction"
+
     case value do
       %{ 
         "reaction_type" => type, 
