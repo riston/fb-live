@@ -7,7 +7,7 @@ import throttle from "xstream/extra/throttle";
 import socket from "./socket";
 
 const CHANNEL_NAME = "command:lobby";
-const MAX_AVATARS = 3;
+const MAX_AVATARS = 10;
 
 const bounceAnimation = element => {
   const tl = new TimelineMax()
