@@ -3,14 +3,23 @@ const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  entry: [
-    "./web/static/css/app.css",
-    "./web/static/js/app.js",
-  ],
-  output: {
-    path: "./priv/static",
-    filename: "js/app.js"
+  // entry: [
+  //   "./web/static/css/app.css",
+  //   "./web/static/js/app.js",
+  // ],
+  entry: {
+      main: "./web/static/js/main.js",
+      vote: "./web/static/js/vote.js",
+      app: "./web/static/css/app.css",
   },
+  output: {
+      filename: "[name].js",
+      path: path.resolve(__dirname, "./priv/static/js"),
+  },
+  // output: {
+  //   path: "./priv/static",
+  //   filename: "js/app.js"
+  // },
   
   resolve: {
     modules: [ 
@@ -32,6 +41,6 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin("css/app.css")
+    new ExtractTextPlugin("app.css")
   ]
 };

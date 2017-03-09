@@ -14,6 +14,6 @@
     <div class="container">
       <%= render @view_module, @view_template, assigns %>
     </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/vote.js") %>"></script>
   </body>
 </html>

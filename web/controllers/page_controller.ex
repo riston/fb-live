@@ -34,23 +34,29 @@ defmodule FbLive.PageController do
   def receive(conn, _params), do: text conn, "No match"
 
   defp map_change(%{"field" => "feed", "value" => value}) do
-    Logger.debug "Matched reaction"
+    Logger.debug "Map reactions"
 
-    case value do
-      %{ 
-        "reaction_type" => type, 
-        "post_id" => @post_id,
-        "verb" => "add",
-        "created_time" => created_at,
-        "sender_id" => sender_id
-      } -> FbLive.Reaction.to(%{
-        "type" => type,
-        "post_id" => @post_id,
-        "action" => "add",
-        "created_at" => created_at,
-        "sender_id" => sender_id
-      })
-      _ -> value
-    end
+    change(value)
   end
+  
+  defp change(%{ 
+    "reaction_type" => type, 
+    "post_id" => @post_id,
+    "verb" => "add",
+    "created_time" => created_at,
+    "sender_id" => sender_id
+  } = value) 
+  do
+    Logger.debug "Matched reaction #{type}"
+    FbLive.Reaction.to(%{
+      "type" => type,
+      "post_id" => @post_id,
+      "action" => "add",
+      "created_at" => created_at,
+      "sender_id" => sender_id
+    })
+
+    value
+  end
+  defp change(value), do: value 
 end

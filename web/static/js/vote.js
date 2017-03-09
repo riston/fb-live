@@ -1,6 +1,9 @@
 
 import "phoenix_html";
+
 import {TimelineMax, TweenMax, Power2} from "gsap";
+import xs from "xstream";
+import throttle from "xstream/extra/throttle";
 import socket from "./socket";
 
 const CHANNEL_NAME = "command:lobby";
@@ -22,7 +25,6 @@ const fbLike$ = document.querySelector(".fb-like");
 const fbLove$ = document.querySelector(".fb-love");
 
 const fbAvatars$ = document.querySelector(".fb-avatars");
-
 const avatars = [];
 
 const pulse = new TimelineMax({
@@ -69,7 +71,6 @@ const onAvatar = avatar => {
       });
     }
 
-    console.log("Image loaded");
     fbAvatars$.appendChild(avatarImg);
 
     TweenMax.to(avatarImg, 0.5, {
@@ -89,16 +90,41 @@ const onAvatar = avatar => {
 };
 
 const onOK = response => console.log("Joined successfully", response);
-
 const onError = response => console.log("Unable to join ", response);
 
 // Now that you are connected, you can join channels with a topic:
 const channel = socket.channel(CHANNEL_NAME, {});
-channel
-  .join()
+channel.join()
   .receive("ok", onOK)
   .receive("error", onError);
 
 channel.on("summary", onSummary);
-channel.on("reaction", onReaction);
-channel.on("avatar", onAvatar);
+
+const reactionStream = xs.create({
+  start(listener) {
+    channel.on("reaction", x => listener.next(x));
+  },
+  stop() {}
+})
+.compose(throttle(250));
+
+reactionStream.addListener({ 
+  next: onReaction,
+  stop: () => console.log("Reaction animating stopped"),
+});
+
+const avatarStream = xs.create({
+  start(listener) {
+    channel.on("avatar", x => {
+      console.log("Avatar received", x);
+      listener.next(x);
+    });
+  },
+  stop() {}
+})
+.compose(throttle(250));
+
+avatarStream.addListener({ 
+  next: onAvatar,
+  stop: () => console.log("Avatar animating stopped"),
+});

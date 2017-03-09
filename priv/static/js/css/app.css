@@ -1,4 +1,94 @@
 
-h1 {
-    color: #def;
+* {
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Days One', sans-serif;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #304453;
+}
+
+.fb-outer-rect {
+    width: 960px;
+    border: 3px solid #FFF;
+    color: #FFF;
+    border-radius: 16px;
+    padding: 2em;
+}
+
+.fb-question {
+    font-size: 2.5em;
+    text-align: center;
+    margin: 0 0 1em;
+}
+
+.fb-question span {
+    color: #ADEBFF;
+}
+
+.fb-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.fb-placeholder {
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.fb-reaction {
+    position: absolute;
+    bottom: -10px;
+    right: 15px;
+}
+
+.fb-image {
+    width: 180px;
+    height: 180px;
+    border: 5px solid #FFF;
+    border-radius: 99%;
+}
+
+.fb-right, .fb-left {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+}
+
+.count {
+    display: inline-block;
+    font-size: 3em;
+}
+
+.fb-help {
+    font-size: 0.9em;
+    font-weight: bolder;
+    text-align: center;
+    margin: 1.5em 0 0 0;
+}
+
+.fb-avatars {
+    margin: 0.5em;
+    align-items: center;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+}
+
+.fb-avatars > img {
+    padding: 2px;
+    border-radius: 10px;
 }
