@@ -16,15 +16,17 @@ defmodule FbLive.Router do
   scope "/", FbLive do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
-    get "/vote", PageController, :vote
+    get "/", VoteController, :index
+    get "/animal", AnimalController, :index
+    get "/hand", HandController, :index
+    get "/city", CityController, :index
   end
 
   # Other scopes may use custom stacks.
   scope "/api", FbLive do
     pipe_through :api
     
-    get "/posts", PageController, :verify
-    post "/posts", PageController, :receive
+    get "/posts", VoteController, :verify
+    post "/posts", VoteController, :receive
   end
 end

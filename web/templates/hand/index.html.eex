@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,15 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>FB vote stream</title>
+    <title>Left or Right hand?</title>
     <link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/js/hand.css") %>">
   </head>
 
   <body>
     <div class="container">
-      <%= render @view_module, @view_template, assigns %>
+      <main class="fb-outer-rect">
+        <h1>Aloha</h1>
+      </main>
+      
     </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/vote.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/hand.js") %>"></script>
   </body>
 </html>

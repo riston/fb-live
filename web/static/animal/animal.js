@@ -1,10 +1,11 @@
 
+import "./animal.css"
 import "phoenix_html";
 
 import {TimelineMax, TweenMax, Power2} from "gsap";
 import xs from "xstream";
 import throttle from "xstream/extra/throttle";
-import socket from "./socket";
+import socket from "../socket";
 
 const CHANNEL_NAME = "command:lobby";
 const MAX_AVATARS = 10;

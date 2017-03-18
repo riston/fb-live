@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dog or Cat?</title>
+    <link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/js/animal.css") %>">
+  </head>
+
+  <body>
+    <div class="container">
+      <main class="fb-outer-rect">
+        <h1 class="fb-question">
+          Are you a <span>Dog</span> or <span>Cat</span> person?
+        </h1>
+
+        <div class="fb-content">
+          <section class="fb-left">
+            <div class="fb-placeholder">
+              <div class="fb-image">
+                <img src="/images/dog.png" />
+              </div>
+              <div class="fb-reaction fb-like">
+                <img src="/images/facebook-like.png" width="60" height="60" />
+              </div>
+            </div>
+            <div>
+                <span class="count left-count">0</span>
+            </div>
+          </section>
+
+          <section class="fb-right">
+            <div class="fb-placeholder">
+              <div class="fb-image">
+                <img src="/images/cat.png" />
+              </div>
+              <div class="fb-reaction fb-love">
+                <img src="/images/facebook-love.png" width="60" height="60" />
+              </div>
+            </div>
+            <div>
+                <span class="count right-count">0</span>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="fb-avatars"></div>
+
+        <footer>
+          <p class="fb-help">Give your vote for dog by clicking the FB <em>like button</em> or <em>love button</em> for cat</p>
+        </footer>
+      </main>
+
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/animal.js") %>"></script>
+  </body>
+</html>

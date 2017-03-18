@@ -3,7 +3,7 @@ defmodule FbLive.Reaction do
     require Logger
     use GenServer
 
-    @summary_check_time 3000
+    @summary_check_time 6000
     @channel_name "command:lobby"
     @avatar_placeholder_url "http://lorempixel.com/50/50"
 

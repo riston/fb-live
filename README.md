@@ -10,6 +10,23 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+## Would you prefer to live in the city or in the countryside?
+
+Placeholder images from:
+
+  - [City](https://pixabay.com/en/hong-kong-china-night-cityscape-1081704/)
+  - [Country](https://pixabay.com/en/squantz-pond-connecticut-landscape-209864/)
+
+## Setup the Chromium window
+
+Use separate browser window
+
+```chromium --app=http://localhost:4000/city --window-position=600,600 --incognito```
+
+To make sure the window size is set properly use X11 tool:
+
+```xdotool search --name "City" windowsize 1280 720```
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/

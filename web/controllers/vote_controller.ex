@@ -1,8 +1,6 @@
-defmodule FbLive.PageController do
+defmodule FbLive.VoteController do
   use FbLive.Web, :controller
   require Logger
-
-  plug :put_layout, "flat.html"
 
   @post_id Application.get_env(:fb_live, :post_id)
 

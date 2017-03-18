@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>City or Countrside?</title>
+    <link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/js/city.css") %>">
+  </head>
+
+  <body>
+    <div class="container">
+      <main class="fb-outer-rect">
+        <h1 class="fb-question">
+            Would you prefer to live<br />
+            in the <span>City</span> or in the <span>Countryside</span>?
+        </h1>
+
+        <div class="fb-content">
+          <section class="fb-left">
+            <div class="fb-placeholder">
+              <div class="fb-image">
+                <img src="/images/city.png" />
+              </div>
+              <div class="fb-reaction fb-like">
+                <img src="/images/facebook-like.png" width="60" height="60" />
+              </div>
+            </div>
+            <div>
+                <span class="count left-count">0</span>
+            </div>
+          </section>
+
+          <section class="fb-right">
+            <div class="fb-placeholder">
+              <div class="fb-image">
+                <img src="/images/countryside.png" />
+              </div>
+              <div class="fb-reaction fb-love">
+                <img src="/images/facebook-love.png" width="60" height="60" />
+              </div>
+            </div>
+            <div>
+                <span class="count right-count">0</span>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="fb-avatars"></div>
+
+        <footer>
+          <p class="fb-help">Give your vote for city by clicking the FB <em>like button</em> or <em>love button</em> for countrside life</p>
+        </footer>
+      </main>
+
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/city.js") %>"></script>
+  </body>
+</html>
