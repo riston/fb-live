@@ -13,6 +13,11 @@
 
   <body>
     <div class="container">
+      <main class="fb-control">
+        <button class="fb-left-reaction">L reaction</button>
+        <button class="fb-right-reaction">R reaction</button>
+        <button class="fb-add-avatar">Add avatar</button>
+      </main>
       <main class="fb-outer-rect">
         <h1 class="fb-question">
             Would you prefer to live<br />
