@@ -24,6 +24,7 @@ const fbLove$ = select(".fb-love");
 const fbAvatars$ = select(".fb-avatars");
 
 // Buttons
+const controlPanel$ = select(".fb-control");
 const leftReactionBtn$ = select(".fb-left-reaction");
 const rightReactionBtn$ = select(".fb-right-reaction");
 const addAvatarBtn$ = select(".fb-add-avatar");
@@ -35,6 +36,7 @@ const timeline = anime.timeline({
     loop: false,
 });
 
+// Like animation
 setInterval(() => {
     timeline
     .add({
@@ -58,6 +60,7 @@ setInterval(() => {
     .play();
 }, 10e3);
 
+// Love animation
 setInterval(() => {
     anime({
         targets: fbLove$,
@@ -68,8 +71,13 @@ setInterval(() => {
     });
 }, 15e3);
 
-const bounceCounter = target => anime({
-    targets: target,
+// Display debug console if enabled
+if (window.localStorage.getItem("debug")) {
+  controlPanel$.style.display = "block";
+}
+
+const bounceCounterAnim = targets => anime({
+    targets,
     scale: 1.5,
     easing: "easeOutExpo",
     duration: 150,
@@ -77,6 +85,20 @@ const bounceCounter = target => anime({
     autoplay: false,
 });
 
+const avatarVisibleAnim = targets => anime({
+    targets,
+    opacity: 1,
+    easing: "easeInOutBack",
+    duration: 1e3,
+});
+
+const avatarRemoveAnim = (targets, onComplete) => anime({
+    targets,
+    translateY: 50,
+    opacity: 0,
+    duration: 700,
+    complete: onComplete,
+})
 
 const onSummary = summary => {
   const { error, like, love } = summary;
@@ -93,11 +115,11 @@ const onReaction = reaction => {
   console.log(reaction);
   const { type } = reaction;
   if (type === "like") {
-    bounceCounter(left$).play();
+    bounceCounterAnim(left$).play();
   }
 
   if (type === "love") {
-    bounceCounter(right$).play();
+    bounceCounterAnim(right$).play();
   }
 };
 
@@ -109,22 +131,15 @@ const onAvatar = avatar => {
 
     if (avatars.length >= MAX_AVATARS) {
       const avatarToRemove = avatars.shift();
-      anime({
-        targets: avatarToRemove,
-        translateY: 50,
-        opacity: 0,
-        duration: 700,
-        complete: () => fbAvatars$.removeChild(avatarToRemove),
-      }).play();
+      const onComplete = () => {
+        fbAvatars$.removeChild(avatarToRemove);
+      };
+
+      avatarRemoveAnim(avatarToRemove, onComplete).play();
     }
 
     fbAvatars$.appendChild(avatarImg);
-    anime({
-        targets: avatarImg,
-        opacity: 1,
-        easing: "easeInOutBack",
-        duration: 1e3,
-    }).play();
+    avatarVisibleAnim(avatarImg).play();
 
     avatars.push(avatarImg);
   };
