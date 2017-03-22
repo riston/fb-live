@@ -17,6 +17,14 @@ Placeholder images from:
   - [City](https://pixabay.com/en/hong-kong-china-night-cityscape-1081704/)
   - [Country](https://pixabay.com/en/squantz-pond-connecticut-landscape-209864/)
 
+FB post:
+ - Title:  Would you prefer to live in the City or in the Countryside?
+ - Description: Do give vote for the "city" like following post or "love" for countryside. #city #country #poll
+
+```
+curl -H "Content-Type: application/json" -X POST  "https://graph.facebook.com/v2.6/${FB_PAGE_ID}/live_videos?access_token=${FB_ACCESS_TOKEN}"
+```
+
 ## Setup the Chromium window
 
 Use separate browser window

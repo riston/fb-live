@@ -31,50 +31,30 @@ const addAvatarBtn$ = select(".fb-add-avatar");
 
 const avatars = [];
 
-const timeline = anime.timeline({
+const likeTimeline = anime.timeline({
     autoplay: false,
     loop: false,
 });
 
-// Like animation
-setInterval(() => {
-    timeline
-    .add({
-        targets: fbLike$,
-        scaleX: [ 
-            { value: 1.5 }, 
-            { value: 1 },
-        ],
-        easing: "easeOutExpo",
-        duration: 1e3,
-    })
-    .add({
-        targets: fbLike$,
-        scaleY: [
-            { value: 1.5 }, 
-            { value: 1 },
-        ],
-        easing: "easeOutExpo",
-        duration: 1e3,
-    })
-    .play();
-}, 10e3);
-
-// Love animation
-setInterval(() => {
-    anime({
-        targets: fbLove$,
-        scale: 1.5,
-        easing: "easeInOutBack",
-        duration: 1e3,
-        direction: "alternate",
-    });
-}, 15e3);
-
-// Display debug console if enabled
-if (window.localStorage.getItem("debug")) {
-  controlPanel$.style.display = "block";
-}
+likeTimeline
+.add({
+    targets: fbLike$,
+    scaleX: [ 
+        { value: 1.5 }, 
+        { value: 1 },
+    ],
+    easing: "easeOutExpo",
+    duration: 1e3,
+})
+.add({
+    targets: fbLike$,
+    scaleY: [
+        { value: 1.5 }, 
+        { value: 1 },
+    ],
+    easing: "easeOutExpo",
+    duration: 1e3,
+});
 
 const bounceCounterAnim = targets => anime({
     targets,
@@ -98,7 +78,26 @@ const avatarRemoveAnim = (targets, onComplete) => anime({
     opacity: 0,
     duration: 700,
     complete: onComplete,
-})
+});
+
+const pulseAnim = targets => anime({
+    targets,
+    scale: 1.5,
+    easing: "easeInOutBack",
+    duration: 1e3,
+    direction: "alternate",
+});
+
+// Like animation
+setInterval(() => likeTimeline.play(), 10e3);
+
+// Love animation
+setInterval(() => pulseAnim(fbLove$).play(), 15e3);
+
+// Display debug console if enabled
+if (window.localStorage.getItem("debug")) {
+  controlPanel$.style.display = "block";
+}
 
 const onSummary = summary => {
   const { error, like, love } = summary;
