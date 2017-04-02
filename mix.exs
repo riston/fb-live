@@ -4,7 +4,7 @@ defmodule FbLive.Mixfile do
   def project do
     [app: :fb_live,
      version: "0.0.1",
-     elixir: "~> 1.2",
+     elixir: "~> 1.3",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -37,7 +37,7 @@ defmodule FbLive.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
-     {:facebook, git: "git://github.com/riston/facebook.ex.git", branch: "fix_summary_count"},
+     {:facebook, "~> 0.13"},
      {:cowboy, "~> 1.0"}]
   end
 

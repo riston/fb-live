@@ -8,8 +8,6 @@ To start your Phoenix app:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
 ## Would you prefer to live in the city or in the countryside?
 
 Placeholder images from:
@@ -34,11 +32,3 @@ Use separate browser window
 To make sure the window size is set properly use X11 tool:
 
 ```xdotool search --name "City" windowsize 1280 720```
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
