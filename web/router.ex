@@ -20,6 +20,7 @@ defmodule FbLive.Router do
     get "/animal", AnimalController, :index
     get "/hand", HandController, :index
     get "/city", CityController, :index
+    get "/maze", MazeController, :index
   end
 
   # Other scopes may use custom stacks.

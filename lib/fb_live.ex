@@ -13,6 +13,7 @@ defmodule FbLive do
       # Start the endpoint when the application starts
       supervisor(FbLive.Endpoint, []),
 
+      supervisor(FbLive.MazeConnect, [name: FbLive.MazeConnect]),
       supervisor(FbLive.Reaction, [name: FbLive.Reaction])
       # Start your own worker by calling: FbLive.Worker.start_link(arg1, arg2, arg3)
       # worker(FbLive.Worker, [arg1, arg2, arg3]),

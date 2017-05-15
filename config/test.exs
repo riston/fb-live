@@ -10,10 +10,10 @@ config :fb_live, FbLive.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :fb_live, FbLive.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "fb_live_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+# config :fb_live, FbLive.Repo,
+#   adapter: Ecto.Adapters.Postgres,
+#   username: "postgres",
+#   password: "postgres",
+#   database: "fb_live_test",
+#   hostname: "localhost",
+#   pool: Ecto.Adapters.SQL.Sandbox

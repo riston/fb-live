@@ -3,7 +3,7 @@ defmodule FbLive.CommandChannel do
     use Phoenix.Channel
 
     def join("command:lobby", _message, socket) do
-        {:ok, socket}
+        {:ok, FbLive.MazeConnect.get_state, socket}
     end
 
     def join("command:" <> _private_room_id, _params, _socket) do

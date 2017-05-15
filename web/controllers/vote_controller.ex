@@ -8,14 +8,14 @@ defmodule FbLive.VoteController do
     render conn, "index.html"
   end
 
-  def verify(conn, %{"hub.challenge" => challenge} = params) do
+  def verify(conn, %{"hub.challenge" => challenge}) do
     text conn, challenge
   end
   def verify(conn, params) do
     render conn, "list.json", %{params: params}
   end
 
-  def receive(conn, %{ "entry" => entries, "object" => "page"} = params) do
+  def receive(conn, %{ "entry" => entries, "object" => "page"}) do
     Logger.debug "Matched FB entry"
 
     entries

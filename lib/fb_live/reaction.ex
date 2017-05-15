@@ -30,7 +30,7 @@ defmodule FbLive.Reaction do
 
 
     def handle_info(:check, state) do
-        Logger.info "Call regular job"
+        Logger.debug "Call regular job"
         schedule_work()
         {:noreply, state}
     end

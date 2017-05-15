@@ -8,6 +8,7 @@ module.exports = {
       animal: "./web/static/animal/animal.js",
       hand: "./web/static/hand/hand.js",
       city: "./web/static/city/city.js",
+      maze: "./web/static/maze/maze.js",
   },
   
   output: {

@@ -20,25 +20,25 @@ defmodule FbLive.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias FbLive.Repo
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
+      # alias FbLive.Repo
+      # import Ecto
+      # import Ecto.Changeset
+      # import Ecto.Query
 
       import FbLive.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint FbLive.Endpoint
+      # @endpoint FbLive.Endpoint
     end
   end
 
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FbLive.Repo)
+  # setup tags do
+  #   :ok = Ecto.Adapters.SQL.Sandbox.checkout(FbLive.Repo)
 
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(FbLive.Repo, {:shared, self()})
-    end
+  #   unless tags[:async] do
+  #     Ecto.Adapters.SQL.Sandbox.mode(FbLive.Repo, {:shared, self()})
+  #   end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
-  end
+  #   {:ok, conn: Phoenix.ConnTest.build_conn()}
+  # end
 end

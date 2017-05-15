@@ -16,24 +16,24 @@ defmodule FbLive.ModelCase do
 
   using do
     quote do
-      alias FbLive.Repo
+      # alias FbLive.Repo
 
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
-      import FbLive.ModelCase
+      # import Ecto
+      # import Ecto.Changeset
+      # import Ecto.Query
+      # import FbLive.ModelCase
     end
   end
 
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FbLive.Repo)
+  # setup tags do
+  #   :ok = Ecto.Adapters.SQL.Sandbox.checkout(FbLive.Repo)
 
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(FbLive.Repo, {:shared, self()})
-    end
+  #   unless tags[:async] do
+  #     Ecto.Adapters.SQL.Sandbox.mode(FbLive.Repo, {:shared, self()})
+  #   end
 
-    :ok
-  end
+  #   :ok
+  # end
 
   @doc """
   Helper for returning list of errors in a struct when given certain data.
