@@ -12,7 +12,8 @@ defmodule FbLive.Reaction do
     end
 
     def init(state) do
-        schedule_work()
+        # Disable the reaction check
+        # schedule_work()
         {:ok, state}
     end
 
@@ -43,11 +44,21 @@ defmodule FbLive.Reaction do
 
     def handle_cast({:reaction, value}, state) do
         Logger.info "Reaction handled"
+        %{ "type" => type } = value
 
-        %{ "sender_id" => fb_user_id } = value
-        avatar_lookup(fb_user_id)
+        direction = case type do
+            "like" -> :s
+            "love" -> :e
+            "haha" -> :n
+            "wow" -> :w
+            _ -> :n
+        end
 
-        FbLive.Endpoint.broadcast! @channel_name, "reaction", value
+        FbLive.MazeConnect.make_move(direction)
+
+        # %{ "sender_id" => fb_user_id } = value
+        # avatar_lookup(fb_user_id)
+
         {:noreply, state}
     end
 

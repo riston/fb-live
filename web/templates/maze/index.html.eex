@@ -12,7 +12,36 @@
 
   <body>
     <div class="container">
-        <canvas id="kanvas" width="500" height="500"></canvas>
+      <div class="main">
+        <div class="maze">
+          <canvas id="kanvas" width="400" height="400"></canvas>
+        </div>
+        <div class="info">
+          <h2>Tutorial</h2>
+
+          <div class="directions">
+            <div class="dir">
+              <span>⇧</span>
+              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-like.png") %>" />
+            </div>
+            <div class="dir">
+              <span>⇦</span>
+              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-like.png") %>" />
+            </div>
+            <div class="dir">
+              <span>⇨</span>
+              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-like.png") %>" />
+            </div>
+            <div class="dir">
+              <span>⇩</span>
+              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-like.png") %>" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="help">
+        <p>Multiple moves allowed, make sure to "unlike" before.</p>
+      </div>
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/maze.js") %>"></script>
   </body>

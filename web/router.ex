@@ -29,5 +29,8 @@ defmodule FbLive.Router do
     
     get "/posts", VoteController, :verify
     post "/posts", VoteController, :receive
+
+    get "/game", GameController, :verify
+    post "/game", GameController, :receive
   end
 end

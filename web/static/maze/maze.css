@@ -1,8 +1,54 @@
 
 * {
-    color: green;
+    user-select: none;
 }
 
-#kanvas {
-    border: 1px solid #ddd;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Days One', sans-serif;
+    color: #FFF;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #2D6382;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
+.help p {
+    margin: 0;
+}
+
+.info {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.info h2 {
+    margin: 0 0 0.3em;
+}
+
+.dir {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.dir > span {
+    font-size: 2em;
+    font-weight: 900;
+    padding-right: 0.5em;
 }

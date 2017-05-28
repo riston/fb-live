@@ -33,7 +33,7 @@ defmodule FbLive.MazeConnect do
         new_state = %MazeState{ grid: new_grid }
         GenServer.cast(:maze, {:new, new_state})        
     end
-    def new_game(%{ test: true }) do
+    def new_game(%{test: true}) do
         Logger.info "Started the maze connect"
 
         new_state = %MazeState{ grid: @test_grid }
@@ -60,7 +60,8 @@ defmodule FbLive.MazeConnect do
         %{
             "level" => state.level,
             "status" => state.status,
-            "grid" => state.grid
+            "grid" => state.grid,
+            "total_moves" => state.total_moves
         }
     end
 
@@ -119,6 +120,9 @@ defmodule FbLive.MazeConnect do
                 |> Map.put(:status, "win")
             false -> new_state
         end
+
+        moves = Map.get(new_state, :total_moves, 0)
+        new_state = Map.put(new_state, :total_moves, 1 + moves)
         
         FbLive.Endpoint.broadcast! @channel_name, "current", serialize_state(new_state)
 

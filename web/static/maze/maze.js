@@ -4,7 +4,6 @@ import "./maze.css"
 
 // Modules
 import "phoenix_html";
-// import anime from "animejs";
 // import xs from "xstream";
 import socket from "../socket";
 
@@ -17,13 +16,18 @@ const [canvasWidth, canvasHeight] = [kanvas.width, kanvas.height];
 const ctx = kanvas.getContext("2d");
 
 const ACTORS = {
-  N: 1,
-  S: 2,
-  E: 4,
-  W: 8,
-  SP: 16,
-  EP: 32,
+  N: 1, S: 2,
+  E: 4, W: 8,
+  SP: 16, EP: 32,
 };
+
+const BORDER_COLOR = "#FFF";
+
+const SPRITE_COLOR = "#F22";
+const SPRITE_STROKE_COLOR = "#F99";
+
+const END_POINT_COLOR = "#2F2";
+const END_POINT_STROKE_COLOR = "#9F9";
 
 const isNorth = x => x & ACTORS.N;
 const isSouth = x => x & ACTORS.S;
@@ -64,7 +68,7 @@ function renderField({ ctx, field, size }) {
     let y = Math.floor(i / size);
     const value = field[i];
 
-    ctx.strokeStyle = "#555";
+    ctx.strokeStyle = BORDER_COLOR;
     ctx.lineWidth = 6;
 
     if (!isNorth(value)) {
@@ -110,8 +114,8 @@ function renderField({ ctx, field, size }) {
       ];
       drawCircle(cx, cy, width / 4);
       ctx.lineWidth = 3;
-      ctx.fillStyle = "#F33";
-      ctx.strokeStyle = "#333";
+      ctx.fillStyle = SPRITE_COLOR;
+      ctx.strokeStyle = SPRITE_STROKE_COLOR;
       ctx.fill();
       ctx.stroke();
     } 
@@ -123,8 +127,8 @@ function renderField({ ctx, field, size }) {
       ];
       drawCircle(cx, cy, width / 4);
       ctx.lineWidth = 3;
-      ctx.fillStyle = "#3F3";
-      ctx.strokeStyle = "#333";
+      ctx.fillStyle = END_POINT_COLOR;
+      ctx.strokeStyle = END_POINT_STROKE_COLOR;
       ctx.fill();
       ctx.stroke();
     }
@@ -133,10 +137,10 @@ function renderField({ ctx, field, size }) {
   ctx.restore();
 }
 
-const size = 10;
-const field = [2, 6, 12, 14, 10, 2, 6, 12, 14, 10, 3, 37, 10, 3, 5, 9, 3, 6, 9, 1, 5, 10, 3, 3, 6, 10, 3, 3, 6, 10, 6, 9, 1, 7, 9, 5, 9, 5, 9, 3, 5, 12, 10, 5, 12, 12, 12, 12, 8, 3, 6, 10, 5, 10, 6, 12, 12, 10, 6, 11, 3, 5, 10, 3, 5, 12, 10, 5, 9, 1, 3, 4, 9, 5, 12, 10, 7, 12, 12, 10, 3, 6, 12, 12, 10, 3, 1, 6, 10, 3, 5, 13, 12, 8, 5, 13, 12, 9, 5, 9];
+// const size = 10;
+// const field = [2, 6, 12, 14, 10, 2, 6, 12, 14, 10, 3, 37, 10, 3, 5, 9, 3, 6, 9, 1, 5, 10, 3, 3, 6, 10, 3, 3, 6, 10, 6, 9, 1, 7, 9, 5, 9, 5, 9, 3, 5, 12, 10, 5, 12, 12, 12, 12, 8, 3, 6, 10, 5, 10, 6, 12, 12, 10, 6, 11, 3, 5, 10, 3, 5, 12, 10, 5, 9, 1, 3, 4, 9, 5, 12, 10, 7, 12, 12, 10, 3, 6, 12, 12, 10, 3, 1, 6, 10, 3, 5, 13, 12, 8, 5, 13, 12, 9, 5, 9];
 
-renderField({ ctx, field, size });
+// renderField({ ctx, field, size });
 
 // // Like animation
 // setInterval(() => likeTimeline.play(), 10e3);
@@ -200,7 +204,7 @@ renderField({ ctx, field, size });
 //   avatarImg.src = url;
 // };
 
-const renderText = ({ ctx, level, status }) => {
+const renderText = ({ ctx, level, status, total_moves }) => {
   ctx.save();
   ctx.font = "bold 60px Verdana";
   ctx.fillStyle = "#3f3";
@@ -210,21 +214,22 @@ const renderText = ({ ctx, level, status }) => {
 
   ctx.font = "bold 20px Verdana";
   ctx.fillText(`Level: ${level}`, 50, 30);
+  ctx.fillText(`Moves: ${total_moves}`, 160, 30);
   ctx.restore();
 };
 
 const renderMaze = (state) => {
-  const { grid, status, level } = state;
+  const { grid, status, level, total_moves } = state;
   const size = Math.sqrt(grid.length);
 
   console.log("Render maze", state);
   renderField({ ctx, field: grid, size });
-  renderText({ ctx, level, status });
+  renderText({ ctx, level, status, total_moves });
 };
 
 const onOK = state => {
   console.log("Joined successfully", state);
-  // renderMaze(state);
+  renderMaze(state);
 }
 const onError = response => console.log("Unable to join ", response);
 
@@ -234,9 +239,7 @@ channel.join()
   .receive("ok", onOK)
   .receive("error", onError);
 
-channel.on("current", state => {
-  renderMaze(state);
-});
+channel.on("current", state => renderMaze(state));
 // channel.on("summary", onSummary);
 
 // const reactionStream = xs.create({
