@@ -22,19 +22,19 @@
           <div class="directions">
             <div class="dir">
               <span>⇧</span>
-              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-like.png") %>" />
+              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-haha.svg") %>" />
             </div>
             <div class="dir">
               <span>⇦</span>
-              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-like.png") %>" />
+              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-wow.svg") %>" />
             </div>
             <div class="dir">
               <span>⇨</span>
-              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-like.png") %>" />
+              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-love.svg") %>" />
             </div>
             <div class="dir">
               <span>⇩</span>
-              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-like.png") %>" />
+              <img width="64" height="64" src="<%= static_path(@conn, "/images/facebook-like.svg") %>" />
             </div>
           </div>
         </div>

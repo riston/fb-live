@@ -4,7 +4,6 @@ import "./maze.css"
 
 // Modules
 import "phoenix_html";
-// import xs from "xstream";
 import socket from "../socket";
 
 const CHANNEL_NAME = "command:lobby";
@@ -20,6 +19,8 @@ const ACTORS = {
   E: 4, W: 8,
   SP: 16, EP: 32,
 };
+
+const BLOCK_SIZE = 30;
 
 const BORDER_COLOR = "#FFF";
 
@@ -48,16 +49,36 @@ const circle = (ctx) => (cx, cy, radius) => {
     ctx.arc(cx, cy, radius, 0, 2 * Math.PI, false);
 };
 
+const currentPosition = (ctx) => (cx, cy, width) => {
+      circle(ctx)(cx, cy, width / 4);
+      ctx.lineWidth = 3;
+      ctx.fillStyle = END_POINT_COLOR;
+      ctx.strokeStyle = END_POINT_STROKE_COLOR;
+      ctx.fill();
+      ctx.stroke();
+};
+
+const endPosition = (ctx) => (cx, cy, width) => {
+      circle(ctx)(cx, cy, width / 4);
+      ctx.lineWidth = 3;
+      ctx.fillStyle = SPRITE_COLOR;
+      ctx.strokeStyle = SPRITE_STROKE_COLOR;
+      ctx.fill();
+      ctx.stroke();
+}
+
 const clear = (ctx) => ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
 function renderField({ ctx, field, size }) {
-  const width = 30;
+  const width = BLOCK_SIZE;
   const widthH2 = width / 2;
 
   const lineWidth = 6;
   const lineWidthH2 = lineWidth / 2;
   const drawLine = line(ctx);
   const drawCircle = circle(ctx);
+  const current = currentPosition(ctx);
+  const end = endPosition(ctx);
 
   clear(ctx);
   ctx.save();
@@ -112,12 +133,7 @@ function renderField({ ctx, field, size }) {
         x * width + widthH2, 
         y * width + widthH2
       ];
-      drawCircle(cx, cy, width / 4);
-      ctx.lineWidth = 3;
-      ctx.fillStyle = SPRITE_COLOR;
-      ctx.strokeStyle = SPRITE_STROKE_COLOR;
-      ctx.fill();
-      ctx.stroke();
+      end(cx, cy, width);
     } 
 
     if (isCurrent(value)) {
@@ -125,96 +141,30 @@ function renderField({ ctx, field, size }) {
         x * width + widthH2, 
         y * width + widthH2
       ];
-      drawCircle(cx, cy, width / 4);
-      ctx.lineWidth = 3;
-      ctx.fillStyle = END_POINT_COLOR;
-      ctx.strokeStyle = END_POINT_STROKE_COLOR;
-      ctx.fill();
-      ctx.stroke();
+      current(cx, cy, width);
     }
      
   }
   ctx.restore();
 }
 
-// const size = 10;
-// const field = [2, 6, 12, 14, 10, 2, 6, 12, 14, 10, 3, 37, 10, 3, 5, 9, 3, 6, 9, 1, 5, 10, 3, 3, 6, 10, 3, 3, 6, 10, 6, 9, 1, 7, 9, 5, 9, 5, 9, 3, 5, 12, 10, 5, 12, 12, 12, 12, 8, 3, 6, 10, 5, 10, 6, 12, 12, 10, 6, 11, 3, 5, 10, 3, 5, 12, 10, 5, 9, 1, 3, 4, 9, 5, 12, 10, 7, 12, 12, 10, 3, 6, 12, 12, 10, 3, 1, 6, 10, 3, 5, 13, 12, 8, 5, 13, 12, 9, 5, 9];
-
-// renderField({ ctx, field, size });
-
-// // Like animation
-// setInterval(() => likeTimeline.play(), 10e3);
-
-// // Love animation
-// setInterval(() => pulseAnim(fbLove$).play(), 15e3);
-
-// // Display debug console if enabled
-// if (window.localStorage.getItem("debug")) {
-//   controlPanel$.style.display = "block";
-// }
-
-// const onSummary = summary => {
-//   const { error, like, love } = summary;
-//   if (error) {
-//       console.error(error);
-//       return;
-//   }
-
-//   left$.textContent = like;
-//   right$.textContent = love;
-// };
-
-// const onReaction = reaction => {
-//   console.log(reaction);
-//   const { type } = reaction;
-//   if (type === "like") {
-//     bounceCounterAnim(left$).play();
-//   }
-
-//   if (type === "love") {
-//     bounceCounterAnim(right$).play();
-//   }
-// };
-
-// const onAvatar = avatar => {
-//   const { user_id, url } = avatar;
-
-//   const avatarImg = new Image();
-//   avatarImg.onload = () => {
-
-//     if (avatars.length >= MAX_AVATARS) {
-//       const avatarToRemove = avatars.shift();
-//       const onComplete = () => {
-//         fbAvatars$.removeChild(avatarToRemove);
-//       };
-
-//       avatarRemoveAnim(avatarToRemove, onComplete).play();
-//     }
-
-//     fbAvatars$.appendChild(avatarImg);
-//     avatarVisibleAnim(avatarImg).play();
-
-//     avatars.push(avatarImg);
-//   };
-
-//   avatarImg.height = 50;
-//   avatarImg.width = 50;
-//   avatarImg.style.opacity = 0;
-
-//   avatarImg.src = url;
-// };
-
 const renderText = ({ ctx, level, status, total_moves }) => {
   ctx.save();
   ctx.font = "bold 60px Verdana";
   ctx.fillStyle = "#3f3";
   if ("win" === status) {
-    ctx.fillText("Next level!", 50, canvasHeight - 60);
+    ctx.fillText("Next level!", 20, 160);
   }
 
   ctx.font = "bold 20px Verdana";
   ctx.fillText(`Level: ${level}`, 50, 30);
   ctx.fillText(`Moves: ${total_moves}`, 160, 30);
+
+  endPosition(ctx)(55, canvasHeight - 30, BLOCK_SIZE);
+  ctx.fillText("End point", 75, canvasHeight - 23);
+  
+  currentPosition(ctx)(200, canvasHeight - 30, BLOCK_SIZE);
+  ctx.fillText("My position", 220, canvasHeight - 23);
   ctx.restore();
 };
 
@@ -240,12 +190,3 @@ channel.join()
   .receive("error", onError);
 
 channel.on("current", state => renderMaze(state));
-// channel.on("summary", onSummary);
-
-// const reactionStream = xs.create({
-//   start(listener) {
-//     channel.on("reaction", x => listener.next(x));
-//   },
-//   stop() {}
-// })
-// .compose(throttle(250));

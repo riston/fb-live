@@ -48,6 +48,7 @@ body {
 }
 
 .dir > span {
+    width: 48px;
     font-size: 2em;
     font-weight: 900;
     padding-right: 0.5em;
