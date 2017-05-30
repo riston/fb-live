@@ -21,7 +21,7 @@ defmodule FbLive.MazeConnect do
 
     def generate_maze() do
         start_pos = {0, 0}
-        end_pos = {:rand.uniform(@grid_size), :rand.uniform(@grid_size)}
+        end_pos = {:rand.uniform(@grid_size - 1), :rand.uniform(@grid_size - 1)}
         Logger.info "Generating new maze"
 
         MazeBase.generate(start_pos, end_pos, @grid_size)

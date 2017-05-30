@@ -21,7 +21,7 @@ defmodule FbLive.GameController do
   def receive(conn, _params), do: text conn, "No match"
 
   defp map_change(%{"field" => "feed", "value" => value}) do
-    Logger.debug "Map reactions"
+    Logger.debug "Map reactions '#{@post_id}'"
 
     change(value)
   end
