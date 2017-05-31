@@ -56,6 +56,7 @@ defmodule FbLive.Reaction do
 
         FbLive.MazeConnect.make_move(direction)
 
+        # Avatar image lookup
         # %{ "sender_id" => fb_user_id } = value
         # avatar_lookup(fb_user_id)
 
