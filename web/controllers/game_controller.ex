@@ -2,7 +2,7 @@ defmodule FbLive.GameController do
   use FbLive.Web, :controller
   require Logger
 
-  @post_id Application.get_env(:fb_live, :post_id)
+  @post_id System.get_env("FB_POST_ID")
 
   def verify(conn, %{"hub.challenge" => challenge}) do
     text conn, challenge
