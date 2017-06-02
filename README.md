@@ -1,9 +1,15 @@
 # Facebook Live Stream Game
 
+![Screenshot](docs/screen.jpg)
+
   * Install dependencies with `mix deps.get`
   * Start endpoint with `mix phoenix.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+# Maze game texts
+
+Facebook Live Stream Maze game, come play now!
 
 ## Setup the Chromium window
 
